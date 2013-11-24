@@ -1,5 +1,5 @@
-83d59bcad88bd9bacd60e14c39be1752  debian/bin/gencontrol.py
-f058888a1f45ffdcefff4c2e1b0a0031  debian/changelog
+74ce6e17db2270f566d050fc9c5b41ed  debian/bin/gencontrol.py
+e3513b86ecd7c79d1353cd7e5d3f708f  debian/changelog
 d253b8a3cc1ffc2054b1d485facc490a  debian/templates/control.headers.arch.in
 d60e1ee86882c530ea74bfbb684a506e  debian/templates/control.headers.featureset.in
 fef9b0f150e661395a030827c5857255  debian/templates/control.headers.in
@@ -17,12 +17,12 @@ cd9ca0eea6dab4d1507e3105a75052eb  debian/templates/image.plain.postrm.in
 6788535419ff3671086ec3536817c67c  debian/templates/image.plain.preinst.in
 82298451656f1c326115f90031f351cf  debian/templates/image.plain.prerm.in
 6d8ccc8d2ca7e951fe89dddb2ff91c88  debian/templates/image.plain.templates.in
-d742c22beab5b91447e29afbb2c69993  debian/config/defines
+53af58c79fc1f71f9f92379cdd5b0fbc  debian/config/defines
 7805244237b17ec0c1e068c364136ee1  debian/config/alpha/defines
 4ec8a85fa1b2821b4f3ed529ac912b29  debian/config/amd64/defines
 7b5301ed4f4e11622f429c63cca7d9f2  debian/config/arm64/defines
 416305ac0017e35ba0365d784c72e074  debian/config/armel/defines
-d2b99f01a488c387ed843fe7a1f089b3  debian/config/armhf/defines
+ddd86af6bf825eb5bd1a5055f4613f73  debian/config/armhf/defines
 366b94d652a66b437eabcd165bcc9610  debian/config/featureset-rt/defines
 7663688e373ff5b5857c15e69a7c1d3e  debian/config/hppa/defines
 86de41b9179ecf6fcca1ecf675cc2175  debian/config/i386/defines
@@ -44,7 +44,7 @@ f4b2921156e7b1a038862f848fdfe48f  debian/config/x32/defines
 b3bfd119f5080ee2c841c5c7e9954c72  debian/config/i386/none/defines
 7146ff53fc4f9fbb49948225d8589b69  debian/config/i386/rt/defines
 7ecaa8334419297fe6715afadae794c6  debian/installer/amd64/kernel-versions
-cb7ecd2fb1ce6377f1be28ab0d7bd70d  debian/installer/armel/kernel-versions
+07c9cbe632c22b1a4d696e305a43dd79  debian/installer/armel/kernel-versions
 970c9fb261a412d414470acb0ba9bc92  debian/installer/armhf/kernel-versions
 fb5fd18c89403e59d2df08c6b261ba87  debian/installer/hppa/kernel-versions
 967797430d58c1aeecac819cd6c23bd8  debian/installer/i386/kernel-versions
