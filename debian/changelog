@@ -1,8 +1,8 @@
-linux (3.12.6-1blankon1) suroboyo; urgency=low
+linux (3.12.6-1blankon1) suroboyo-updates; urgency=low
 
   * New Upstream Release 
 
- -- Rahman Yusri Aftian <aftian@di.blankon.in>  Mon, 23 Dec 2013 06:28:49 +0700
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 26 Dec 2013 07:47:22 +0700
 
 linux (3.12.6-1) unstable; urgency=medium
 
