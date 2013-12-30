@@ -1,8 +1,18 @@
-linux (3.12.6-1blankon1) suroboyo-updates; urgency=low
+linux (3.12.6-2blankon1) suroboyo-updates; urgency=low
 
   * New Upstream Release 
 
- -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 26 Dec 2013 07:47:22 +0700
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Mon, 30 Dec 2013 16:39:09 +0700
+
+linux (3.12.6-2) unstable; urgency=medium
+
+  [ Bastian Blank ]
+  * [x86] Make MICROCODE built-in for early microcode loading.
+
+  [ Ben Hutchings ]
+  * [armhf] linux-headers: Fix typo in compiler dependency
+
+ -- Ben Hutchings <ben@decadent.org.uk>  Sun, 29 Dec 2013 16:56:20 +0100
 
 linux (3.12.6-1) unstable; urgency=medium
 

@@ -2867,7 +2867,7 @@ Description: Linux 3.12 for ARMv7 multiplatform compatible SoCs
 
 Package: linux-headers-3.12-1-armmp
 Architecture: armhf
-Depends: linux-headers-3.12-1-common (= ${binary:Version}), linux-kbuild-3.12, ${misc:Depends}, linux-compiler-gcc-4.8--arm
+Depends: linux-headers-3.12-1-common (= ${binary:Version}), linux-kbuild-3.12, ${misc:Depends}, linux-compiler-gcc-4.8-arm
 Description: Header files for Linux 3.12-1-armmp
  This package provides the architecture-specific kernel header files for
  Linux kernel 3.12-1-armmp, generally used for building out-of-tree kernel
@@ -2890,7 +2890,7 @@ Description: Linux 3.12 for ARMv7 multiplatform compatible SoCs supporting LPAE
 
 Package: linux-headers-3.12-1-armmp-lpae
 Architecture: armhf
-Depends: linux-headers-3.12-1-common (= ${binary:Version}), linux-kbuild-3.12, ${misc:Depends}, linux-compiler-gcc-4.8--arm
+Depends: linux-headers-3.12-1-common (= ${binary:Version}), linux-kbuild-3.12, ${misc:Depends}, linux-compiler-gcc-4.8-arm
 Description: Header files for Linux 3.12-1-armmp-lpae
  This package provides the architecture-specific kernel header files for
  Linux kernel 3.12-1-armmp-lpae, generally used for building out-of-tree

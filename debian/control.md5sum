@@ -1,5 +1,5 @@
 167d7fb9f81877d3d2797de3c40ce3ce  debian/bin/gencontrol.py
-358ce28af7c8f70bf9afda5f40e4d79f  debian/changelog
+c34caca9e749ca24616caf75cda3b430  debian/changelog
 8991a0797a881ca5fb5e2ec5b36a718b  debian/templates/control.extra.in
 d253b8a3cc1ffc2054b1d485facc490a  debian/templates/control.headers.arch.in
 d60e1ee86882c530ea74bfbb684a506e  debian/templates/control.headers.featureset.in
@@ -23,7 +23,7 @@ cd9ca0eea6dab4d1507e3105a75052eb  debian/templates/image.plain.postrm.in
 d6c54f8d0c8eb146631bda09d4c1d2cc  debian/config/amd64/defines
 7b5301ed4f4e11622f429c63cca7d9f2  debian/config/arm64/defines
 e8455e2260cc86a08cf740189b3789dc  debian/config/armel/defines
-32a5fa41bbd3baa6c9d458036c40d674  debian/config/armhf/defines
+9d64a6d68711c1f1a90ee1cfc486e5b5  debian/config/armhf/defines
 366b94d652a66b437eabcd165bcc9610  debian/config/featureset-rt/defines
 95efce92657e361307272f8413301d90  debian/config/hppa/defines
 4b4f771643a29cea70a83b23cfbc57dd  debian/config/i386/defines

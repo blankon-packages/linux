@@ -127,7 +127,7 @@ S'3.12-1'
 p71
 sS'source'
 p72
-V3.12.6-1
+V3.12.6-2
 p73
 sS'upstream'
 p74
@@ -1656,7 +1656,7 @@ tp882
 (dp883
 S'headers%gcc-4.8'
 p884
-S'linux-compiler-gcc-4.8--arm'
+S'linux-compiler-gcc-4.8-arm'
 p885
 ss(S'image'
 p886
