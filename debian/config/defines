@@ -1,12 +1,5 @@
 [abi]
-abiname: 1
-ignore-changes:
-# Assuming OOT modules don't use the target framework
- module:drivers/target/*
-# Private to this set of drivers
- module:drivers/scsi/qla2xxx/*
-# Should only be used by ioatdma
- sysctl_tcp_dma_copybreak
+abiname: 4
 
 [base]
 arches:
@@ -21,9 +14,13 @@ arches:
  m68k
  mips
  mipsel
+ mips64
+ mips64el
+ or1k
  powerpc
  powerpcspe
  ppc64
+ ppc64el
  s390
  s390x
  sh4
@@ -36,7 +33,7 @@ featuresets:
  rt
 
 [featureset-rt_base]
-enabled: true
+enabled: false
 
 [description]
 part-long-up: This kernel is not suitable for SMP (multi-processor,

@@ -81,7 +81,7 @@ class Main(object):
 
     def upstream_patch(self, input_patch):
         self.log("Patching source with %s\n" % input_patch)
-        match = re.match(r'(^|.*/)patch-\d+\.\d+\.\d+(-\S+?)?(\.(?P<extension>(bz2|gz|xz)))?$', input_patch)
+        match = re.match(r'(^|.*/)patch-\d+\.\d+(\.\d+)?(-\S+?)?(\.(?P<extension>(bz2|gz|xz)))?$', input_patch)
         if not match:
             raise RuntimeError("Can't identify name of patch")
         cmdline = []
@@ -101,7 +101,7 @@ class Main(object):
     def debian_patch(self):
         name = "orig"
         self.log("Patching source with debian patch (series %s)\n" % name)
-        fp = file("debian/patches/series-" + name)
+        fp = open("debian/patches/series-" + name)
         series = PatchSeries(name, "debian/patches", fp)
         series(dir=os.path.join(self.dir, self.orig))
 
@@ -121,7 +121,7 @@ class Main(object):
         try:
             if os.spawnv(os.P_WAIT, '/bin/sh', ['sh', '-c', ' '.join(cmdline)]):
                 raise RuntimeError("Can't patch source")
-            os.chmod(out, 0644)
+            os.chmod(out, 0o644)
         except:
             try:
                 os.unlink(out)

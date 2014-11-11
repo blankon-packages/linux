@@ -4,9 +4,11 @@ lasi700
 osst
 sg
 st
-sym53c8xx
 zalon7xx
-megaraid
+megaraid ?
+megaraid_mbox ?
+megaraid_mm ?
+megaraid_sas ?
 qlogicfas408
 mptbase
 mptspi
