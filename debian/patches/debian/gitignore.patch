@@ -5,7 +5,7 @@ Forwarded: not-needed
 
 --- a/.gitignore
 +++ b/.gitignore
-@@ -46,11 +46,6 @@
+@@ -49,22 +49,11 @@ Module.symvers
  /Module.markers
  
  #
@@ -14,6 +14,17 @@ Forwarded: not-needed
 -/debian/
 -
 -#
- # git files that we don't want to ignore even it they are dot-files
+ # tar directory (make tar*-pkg)
  #
- !.gitignore
+ /tar-install/
+ 
+ #
+-# git files that we don't want to ignore even it they are dot-files
+-#
+-!.gitignore
+-!.mailmap
+-
+-#
+ # Generated include files
+ #
+ include/config

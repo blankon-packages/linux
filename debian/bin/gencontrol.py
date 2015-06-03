@@ -33,6 +33,8 @@ class Gencontrol(Base):
             'bootloaders': config.SchemaItemList(),
             'configs': config.SchemaItemList(),
             'initramfs-generators': config.SchemaItemList(),
+            'check-size': config.SchemaItemInteger(),
+            'check-size-with-dtb': config.SchemaItemBoolean(),
         },
         'relations': {
         },
@@ -477,6 +479,7 @@ class Gencontrol(Base):
         }
         self.config['version', ] = {'source': self.version.complete,
                                     'upstream': self.version.linux_upstream,
+                                    'abiname_base': self.abiname_version,
                                     'abiname': (self.abiname_version +
                                                 self.abiname_part)}
 
@@ -488,6 +491,10 @@ class Gencontrol(Base):
                 raise RuntimeError("Can't upload to %s with a version of %s" % (distribution, version))
         if distribution in ('experimental', ):
             if not version.linux_revision_experimental:
+                raise RuntimeError("Can't upload to %s with a version of %s" % (distribution, version))
+        if distribution.endswith('-security') or distribution.endswith('-lts'):
+            if (not version.linux_revision_security or
+                version.linux_revision_backports):
                 raise RuntimeError("Can't upload to %s with a version of %s" % (distribution, version))
         if distribution.endswith('-backports'):
             if not version.linux_revision_backports:

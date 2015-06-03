@@ -46,7 +46,7 @@ CONFIG_CDROM_PKTCDVD_BUFFERS=8
 ##
 CONFIG_PRINTER=m
 # CONFIG_LP_CONSOLE is not set
-# CONFIG_PPDEV is not set
+CONFIG_PPDEV=m
 CONFIG_GEN_RTC=y
 # CONFIG_GEN_RTC_X is not set
 # CONFIG_DTLK is not set
@@ -151,15 +151,6 @@ CONFIG_SERIO_RAW=m
 ## file: drivers/input/touchscreen/Kconfig
 ##
 # CONFIG_INPUT_TOUCHSCREEN is not set
-
-##
-## file: drivers/message/i2o/Kconfig
-##
-CONFIG_I2O=m
-CONFIG_I2O_CONFIG=m
-CONFIG_I2O_BLOCK=m
-CONFIG_I2O_SCSI=m
-CONFIG_I2O_PROC=m
 
 ##
 ## file: drivers/mfd/Kconfig
@@ -457,7 +448,6 @@ CONFIG_SCSI_NCR53C8XX_SYNC=20
 # CONFIG_SCSI_SIM710 is not set
 # CONFIG_SCSI_SYM53C416 is not set
 # CONFIG_SCSI_DC395x is not set
-# CONFIG_SCSI_DC390T is not set
 # CONFIG_SCSI_T128 is not set
 # CONFIG_SCSI_U14_34F is not set
 
