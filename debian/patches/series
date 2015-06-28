@@ -42,6 +42,7 @@ bugfix/mips/disable-advansys.patch
 bugfix/arm64/arm64-add-missing-dts-entry-for-X-Gene-platform.patch
 bugfix/arm64/arm64-removed-using-of-the-mask-attribute-in-the-dts.patch
 bugfix/x86/config-enable-need_dma_map_state-by-default-when-swi.patch
+bugfix/armel/bus-mvebu-mbus-do-not-set-WIN_CTRL_SYNCBARRIER-on-no.patch
 
 # Arch features
 features/mips/MIPS-increase-MAX-PHYSMEM-BITS-on-Loongson-3-only.patch
@@ -57,18 +58,13 @@ features/arm64/usb-add-support-for-acpi-identification-to-xhci-platform.patch
 bugfix/all/misc-bmp085-Enable-building-as-a-module.patch
 bugfix/all/kbuild-use-nostdinc-in-compile-tests.patch
 bugfix/all/disable-some-marvell-phys.patch
-debian/i2o-disable-i2o_ext_adaptec-on-64bit.patch
 bugfix/all/aic94xx-remove-broken-fallback-for-missing-ctrl-a.patch
 bugfix/all/rtsx_usb_ms-use-msleep_interruptible-in-polling-loop.patch
 bugfix/all/net-mv643xx-disable-tso-by-default.patch
-bugfix/all/vfs-read-file_handle-only-once-in-handle_to_path.patch
 bugfix/all/ext4-allocate-entire-range-in-zero-range.patch
 debian/emmc-don-t-initialize-partitions-on-rpmb-flagged-areas.patch
-bugfix/all/mnt-fail-collect_mounts-when-applied-to-unmounted-mo.patch
-bugfix/all/fs_pin-allow-for-the-possibility-that-m_list-or-s_li.patch
 bugfix/all/rtc-hctosys-do-not-treat-lack-of-rtc-device-as-error.patch
 bugfix/all/rtc-hctosys-use-function-name-in-the-error-log.patch
-bugfix/all/md-raid0-fix-restore-to-sector-variable-in-raid0_make_request.patch
 bugfix/all/cdc_ncm-fix-tx_bytes-statistics.patch
 bugfix/all/musb-musb-fix-order-of-conditions-for-assigning-end-p.patch
 
@@ -80,3 +76,7 @@ features/all/e1000e/0001-e1000e-initial-support-for-i219.patch
 features/all/e1000e/0002-e1000e-fix-obscure-comments.patch
 features/all/e1000e/0003-e1000e-remove-calls-to-ioremap-unmap-for-nvm-addr.patch
 features/all/e1000e/0004-e1000e-nvm-write-protect-access-removed-from-spt-hw.patch
+
+# Fix ABI changes
+debian/revert-libata-ignore-spurious-phy-event-on-lpm-polic.patch
+debian/ktime-fix-abi-change-in-4.0.5.patch
