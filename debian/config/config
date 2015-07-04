@@ -4443,6 +4443,10 @@ CONFIG_VIRTIO_BALLOON=m
 CONFIG_W1=m
 CONFIG_W1_CON=y
 
+## file: fs/aufs/Kconfig
+##
+CONFIG_AUFS_FS=m
+
 ##
 ## file: drivers/w1/masters/Kconfig
 ##

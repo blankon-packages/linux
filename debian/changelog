@@ -1,6 +1,6 @@
 linux (4.0.5-1blankon2) tambora; urgency=medium
 
-  * patches: Add aufs4.patch 
+  * enable aufs
 
  -- Rahman Yusri Aftian <aftian@di.blankon.in>  Sat, 04 Jul 2015 08:34:47 +0700
 
