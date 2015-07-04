@@ -1,3 +1,13 @@
+linux (4.0.5-1blankon3) tambora; urgency=medium
+
+  * ## aufs4 BlankOn
+    -  debian/aufs4-base.patch
+    -  debian/aufs4-mmap.patch
+    -  debian/aufs4-standalone.patch
+    -  debian/aufs4-kbuild.patch 
+
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Sat, 04 Jul 2015 10:54:57 +0700
+
 linux (4.0.5-1blankon2) tambora; urgency=medium
 
   * enable aufs
