@@ -4443,10 +4443,6 @@ CONFIG_VIRTIO_BALLOON=m
 CONFIG_W1=m
 CONFIG_W1_CON=y
 
-## file: fs/aufs/Kconfig
-##
-CONFIG_AUFS_FS=m
-
 ##
 ## file: drivers/w1/masters/Kconfig
 ##
@@ -5389,8 +5385,8 @@ CONFIG_FRONTSWAP=y
 # CONFIG_CMA is not set
 CONFIG_MEM_SOFT_DIRTY=y
 CONFIG_ZSWAP=y
-# CONFIG_ZBUD is not set
-CONFIG_ZSMALLOC=y
+CONFIG_ZBUD=m
+CONFIG_ZSMALLOC=m
 # CONFIG_PGTABLE_MAPPING is not set
 
 ##
