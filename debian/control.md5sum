@@ -1,5 +1,5 @@
 28eb1a9e9bc8a85dd2852716ecb36f2d  debian/bin/gencontrol.py
-2f0c4505388732d8dc1760e6103b8a3c  debian/changelog
+25c102839fc98e92c951b4ece86320f6  debian/changelog
 3e2fde720ec84a08dab1cca4224521e2  debian/templates/image.plain.preinst.in
 1b17e6e766d2f44e0852cfa864459837  debian/templates/control.main.in
 4c5446e06f8220c5064d4810073445a4  debian/templates/image.plain.prerm.in
@@ -40,7 +40,7 @@ eb360f505c87b1155c33c8156878b50d  debian/config/s390x/defines
 2a259e447c81628c8d33560dce855fd2  debian/config/ia64/defines
 da871dd4234a8d1ed82d76fa536fa411  debian/config/alpha/defines
 73aa824a6ee2bdd7ceed96896dfb2cd4  debian/config/hppa/defines
-272a3c72957c614a301ca5ae5dde0a3f  debian/config/ppc64el/defines
+ac7d4c0faf379cc822060169761712ac  debian/config/ppc64el/defines
 4043ec3407ad1e342e331aba1fa58895  debian/config/armel/defines
 91671d7ce75310062f65a60d3b94489b  debian/config/or1k/defines
 9462622a41b618007bf9e8343f2fb3ce  debian/config/s390/defines
