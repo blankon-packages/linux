@@ -1,8 +1,24 @@
-linux (4.0.8-1blankon1) tambora; urgency=medium
+linux (4.0.8-2BlankOn1) tambora; urgency=medium
 
   * New Upstream Release 
 
- -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 16 Jul 2015 18:18:05 +0700
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 30 Jul 2015 22:37:05 +0700
+
+linux (4.0.8-2) unstable; urgency=high
+
+  [ Uwe Kleine-König ]
+  * [rt] Update to 4.0.8-rt6
+
+  [ Ben Hutchings ]
+  * [amd64] Fix nested NMI handling (CVE-2015-3290, CVE-2015-3291,
+    CVE-2015-5157)
+    - Enable nested do_nmi handling for 64-bit kernels
+    - Remove asm code that saves cr2
+    - Switch stacks on userspace NMI entry
+    - Reorder nested NMI checks
+    - Use DF to avoid userspace RSP confusing nested NMI detection
+
+ -- Ben Hutchings <ben@decadent.org.uk>  Wed, 22 Jul 2015 21:45:07 +0100
 
 linux (4.0.8-1) unstable; urgency=medium
 
