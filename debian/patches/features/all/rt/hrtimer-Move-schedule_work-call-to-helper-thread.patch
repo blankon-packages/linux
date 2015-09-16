@@ -1,8 +1,7 @@
-From 180cdb93d796bf52c919f5e3df30af83aa6d46ca Mon Sep 17 00:00:00 2001
 From: Yang Shi <yang.shi@windriver.com>
 Date: Mon, 16 Sep 2013 14:09:19 -0700
-Subject: [PATCH] hrtimer: Move schedule_work call to helper thread
-Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.0/patches-4.0.8-rt6.tar.xz
+Subject: hrtimer: Move schedule_work call to helper thread
+Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.1/patches-4.1.3-rt3.tar.xz
 
 When run ltp leapsec_timer test, the following call trace is caught:
 
@@ -47,7 +46,7 @@ makes a similar change.
 add a helper thread which does the call to schedule_work and wake up that
 thread instead of calling schedule_work directly.
 
-Cc: stable-rt@vger.kernel.org
+
 Signed-off-by: Yang Shi <yang.shi@windriver.com>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---

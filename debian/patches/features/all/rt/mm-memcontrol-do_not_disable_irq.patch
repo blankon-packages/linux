@@ -1,7 +1,7 @@
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: [PATCH] mm/memcontrol: do no disable interrupts
+Subject: mm/memcontrol: Replace local_irq_disable with local locks
 Date: Wed, 28 Jan 2015 17:14:16 +0100
-Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.0/patches-4.0.8-rt6.tar.xz
+Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.1/patches-4.1.3-rt3.tar.xz
 
 There are a few local_irq_disable() which then take sleeping locks. This
 patch converts them local locks.
@@ -10,9 +10,9 @@ Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
  include/linux/swap.h |    1 +
  mm/compaction.c      |    6 ++++--
- mm/memcontrol.c      |   21 ++++++++++++---------
+ mm/memcontrol.c      |   18 ++++++++++++------
  mm/swap.c            |    2 +-
- 4 files changed, 18 insertions(+), 12 deletions(-)
+ 4 files changed, 18 insertions(+), 9 deletions(-)
 
 --- a/include/linux/swap.h
 +++ b/include/linux/swap.h
@@ -26,7 +26,7 @@ Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
  extern void lru_cache_add_file(struct page *page);
 --- a/mm/compaction.c
 +++ b/mm/compaction.c
-@@ -1387,10 +1387,12 @@ static int compact_zone(struct zone *zon
+@@ -1406,10 +1406,12 @@ static int compact_zone(struct zone *zon
  				cc->migrate_pfn & ~((1UL << cc->order) - 1);
  
  			if (last_migrated_pfn < current_block_start) {
@@ -43,7 +43,7 @@ Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
  			}
 --- a/mm/memcontrol.c
 +++ b/mm/memcontrol.c
-@@ -60,6 +60,8 @@
+@@ -66,6 +66,8 @@
  #include <net/sock.h>
  #include <net/ip.h>
  #include <net/tcp_memcontrol.h>
@@ -52,7 +52,7 @@ Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
  #include "slab.h"
  
  #include <asm/uaccess.h>
-@@ -79,6 +81,7 @@ int do_swap_account __read_mostly;
+@@ -85,6 +87,7 @@ int do_swap_account __read_mostly;
  #define do_swap_account		0
  #endif
  
@@ -60,7 +60,7 @@ Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
  static const char * const mem_cgroup_stat_names[] = {
  	"cache",
  	"rss",
-@@ -2853,12 +2856,12 @@ static int mem_cgroup_move_account(struc
+@@ -4801,12 +4804,12 @@ static int mem_cgroup_move_account(struc
  
  	ret = 0;
  
@@ -75,7 +75,7 @@ Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
  out_unlock:
  	unlock_page(page);
  out:
-@@ -5546,10 +5549,10 @@ void mem_cgroup_commit_charge(struct pag
+@@ -5543,10 +5546,10 @@ void mem_cgroup_commit_charge(struct pag
  		VM_BUG_ON_PAGE(!PageTransHuge(page), page);
  	}
  
@@ -88,7 +88,7 @@ Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
  
  	if (do_swap_account && PageSwapCache(page)) {
  		swp_entry_t entry = { .val = page_private(page) };
-@@ -5605,14 +5608,14 @@ static void uncharge_batch(struct mem_cg
+@@ -5602,14 +5605,14 @@ static void uncharge_batch(struct mem_cg
  		memcg_oom_recover(memcg);
  	}
  
@@ -105,7 +105,7 @@ Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
  
  	if (!mem_cgroup_is_root(memcg))
  		css_put_many(&memcg->css, nr_pages);
-@@ -5816,6 +5819,7 @@ void mem_cgroup_swapout(struct page *pag
+@@ -5813,6 +5816,7 @@ void mem_cgroup_swapout(struct page *pag
  {
  	struct mem_cgroup *memcg;
  	unsigned short oldid;
@@ -113,14 +113,12 @@ Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
  
  	VM_BUG_ON_PAGE(PageLRU(page), page);
  	VM_BUG_ON_PAGE(page_count(page), page);
-@@ -5838,11 +5842,10 @@ void mem_cgroup_swapout(struct page *pag
+@@ -5835,9 +5839,11 @@ void mem_cgroup_swapout(struct page *pag
  	if (!mem_cgroup_is_root(memcg))
  		page_counter_uncharge(&memcg->memory, 1);
  
--	/* XXX: caller holds IRQ-safe mapping->tree_lock */
--	VM_BUG_ON(!irqs_disabled());
--
 +	local_lock_irqsave(event_lock, flags);
+ 	/* Caller disabled preemption with mapping->tree_lock */
  	mem_cgroup_charge_statistics(memcg, page, -1);
  	memcg_check_events(memcg, page);
 +	local_unlock_irqrestore(event_lock, flags);
@@ -129,8 +127,8 @@ Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
  /**
 --- a/mm/swap.c
 +++ b/mm/swap.c
-@@ -46,7 +46,7 @@ static DEFINE_PER_CPU(struct pagevec, lr
- static DEFINE_PER_CPU(struct pagevec, lru_deactivate_pvecs);
+@@ -47,7 +47,7 @@ static DEFINE_PER_CPU(struct pagevec, lr
+ static DEFINE_PER_CPU(struct pagevec, lru_deactivate_file_pvecs);
  
  static DEFINE_LOCAL_IRQ_LOCK(rotate_lock);
 -static DEFINE_LOCAL_IRQ_LOCK(swapvec_lock);

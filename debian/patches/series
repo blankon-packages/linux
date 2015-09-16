@@ -1,5 +1,6 @@
 # Changes to support package build system
 debian/version.patch
+debian/uname-version-timestamp.patch
 debian/kernelvariables.patch
 debian/gitignore.patch
 debian/ia64-hardcode-arch-script-output.patch
@@ -15,6 +16,13 @@ bugfix/all/firmware_class-return-specific-errors-from-file-read.patch
 bugfix/all/firmware_class-log-every-success-and-failure.patch
 bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch
 bugfix/all/radeon-firmware-is-required-for-drm-and-kms-on-r600-onward.patch
+
+# Patches from aufs4 repository, imported with
+# debian/patches/features/all/aufs4/gen-patch.  These are only the
+# changes needed to allow aufs to be built out-of-tree.
+features/all/aufs4/aufs4-base.patch
+features/all/aufs4/aufs4-mmap.patch
+features/all/aufs4/aufs4-standalone.patch
 
 # Change some defaults for security reasons
 debian/af_802154-Disable-auto-loading-as-mitigation-against.patch
@@ -59,35 +67,25 @@ bugfix/all/disable-some-marvell-phys.patch
 bugfix/all/aic94xx-remove-broken-fallback-for-missing-ctrl-a.patch
 bugfix/all/rtsx_usb_ms-use-msleep_interruptible-in-polling-loop.patch
 bugfix/all/net-mv643xx-disable-tso-by-default.patch
-bugfix/all/ext4-allocate-entire-range-in-zero-range.patch
 debian/emmc-don-t-initialize-partitions-on-rpmb-flagged-areas.patch
-bugfix/all/rtc-hctosys-do-not-treat-lack-of-rtc-device-as-error.patch
-bugfix/all/rtc-hctosys-use-function-name-in-the-error-log.patch
-bugfix/all/musb-musb-fix-order-of-conditions-for-assigning-end-p.patch
+
+# Reproducible docs
+bugfix/all/make-highlights-deterministic-in-kernel-doc.patch
+bugfix/all/remove-timestamps-from-compressed-man-pages.patch
+bugfix/all/docbook-generate-consistent-ids.patch
+bugfix/all/docbook-fix-duplicate-man-pages.patch
+bugfix/all/kernel-doc-set-man-page-date.patch
 
 # Miscellaneous features
 features/all/efi-autoload-efi-pstore.patch
+features/all/cpufreq-dt-allow-driver-to-boot-automatically.patch
+features/all/regulator-axp20x-Add-module-alias.patch
 
-# Add Sunrise Point support to e1000e
-features/all/e1000e/0001-e1000e-initial-support-for-i219.patch
-features/all/e1000e/0002-e1000e-fix-obscure-comments.patch
-features/all/e1000e/0003-e1000e-remove-calls-to-ioremap-unmap-for-nvm-addr.patch
-features/all/e1000e/0004-e1000e-nvm-write-protect-access-removed-from-spt-hw.patch
-
-# Fix ABI changes
-debian/revert-libata-ignore-spurious-phy-event-on-lpm-polic.patch
-debian/ktime-fix-abi-change-in-4.0.5.patch
-debian/revert-tcp-fix-child-sockets-to-use-system-default-c.patch
-debian/udp-fix-abi-change-in-4.0.6.patch
-bugfix/mips/mips-normalise-code-flow-in-the-cpu-exception-handle.patch
-bugfix/mips/mips-correct-fp-isa-requirements.patch
-bugfix/x86/kvm-x86-fix-kvm_apic_has_events-to-check-for-null-po.patch
-bugfix/x86/0001-x86-asm-entry-64-Fold-the-test_in_nmi-macro-into-its.patch
-bugfix/x86/0002-x86-asm-entry-64-Remove-a-redundant-jump.patch
-bugfix/x86/0003-x86-asm-entry-64-Remove-pointless-jump-to-irq_return.patch
-bugfix/x86/0004-x86-nmi-Enable-nested-do_nmi-handling-for-64-bit-ker.patch
-bugfix/x86/0005-x86-nmi-64-Remove-asm-code-that-saves-cr2.patch
-bugfix/x86/0006-x86-nmi-64-Switch-stacks-on-userspace-NMI-entry.patch
-bugfix/x86/0007-x86-nmi-64-Improve-nested-NMI-comments.patch
-bugfix/x86/0008-x86-nmi-64-Reorder-nested-NMI-checks.patch
-bugfix/x86/0009-x86-nmi-64-Use-DF-to-avoid-userspace-RSP-confusing-n.patch
+# Hardening from grsecurity
+features/all/grsecurity/grsecurity-kconfig.patch
+# Disabled until we add code into the grsecurity/ directory
+#features/all/grsecurity/grsecurity-kbuild.patch
+features/all/grsecurity/grkernsec_perf_harden.patch
+bugfix/all/virtio-net-drop-netif_f_fraglist.patch
+bugfix/all/perf-fix-aux-buffer-refcounting.patch
+bugfix/all/perf-fix-double-free-of-the-aux-buffer.patch

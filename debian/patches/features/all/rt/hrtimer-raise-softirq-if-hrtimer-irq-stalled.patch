@@ -1,12 +1,12 @@
 Subject: hrtimer: Raise softirq if hrtimer irq stalled
 From: Watanabe <shunsuke.watanabe@tel.com>
 Date: Sun, 28 Oct 2012 11:13:44 +0100
-Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.0/patches-4.0.8-rt6.tar.xz
+Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.1/patches-4.1.3-rt3.tar.xz
 
 When the hrtimer stall detection hits the softirq is not raised.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: stable-rt@vger.kernel.org
+
 ---
  kernel/time/hrtimer.c |    9 ++++-----
  1 file changed, 4 insertions(+), 5 deletions(-)

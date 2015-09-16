@@ -1,8 +1,7 @@
-From 783ec42143b22999b03f228d5658207136c1d945 Mon Sep 17 00:00:00 2001
 From: Davidlohr Bueso <dave@stgolabs.net>
 Date: Fri, 1 May 2015 08:27:51 -0700
-Subject: [PATCH 2/2] futex: Implement lockless wakeups
-Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.0/patches-4.0.8-rt6.tar.xz
+Subject: futex: Implement lockless wakeups
+Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.1/patches-4.1.3-rt3.tar.xz
 
 Given the overall futex architecture, any chance of reducing
 hb->lock contention is welcome. In this particular case, using
@@ -31,7 +30,8 @@ Naturally, this can cause spurious wakeups. However there is no core code
 that cannot handle them afaict, and furthermore tglx does have the point
 that other events can already trigger them anyway.
 
-Cc: stable-rt@vger.kernel.org
+[upstream commit 1d0dcb3ad9d336e6d6ee020a750a7f8d907e28de]
+
 Signed-off-by: Davidlohr Bueso <dbueso@suse.de>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Acked-by: Thomas Gleixner <tglx@linutronix.de>

@@ -1,7 +1,7 @@
 From: Thomas Gleixner <tglx@linutronix.de>
 Date: Fri, 3 Jul 2009 08:44:31 -0500
-Subject: hrtimer: fixup hrtimer callback changes for preempt-rt
-Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.0/patches-4.0.8-rt6.tar.xz
+Subject: hrtimer: Fixup hrtimer callback changes for preempt-rt
+Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.1/patches-4.1.3-rt3.tar.xz
 
 In preempt-rt we can not call the callbacks which take sleeping locks
 from the timer interrupt context.
@@ -42,7 +42,7 @@ Signed-off-by: Ingo Molnar <mingo@elte.hu>
  	ktime_t			softirq_time;
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -458,6 +458,7 @@ static void init_rq_hrtick(struct rq *rq
+@@ -461,6 +461,7 @@ static void init_rq_hrtick(struct rq *rq
  
  	hrtimer_init(&rq->hrtick_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
  	rq->hrtick_timer.function = hrtick;
@@ -52,7 +52,7 @@ Signed-off-by: Ingo Molnar <mingo@elte.hu>
  static inline void hrtick_clear(struct rq *rq)
 --- a/kernel/sched/rt.c
 +++ b/kernel/sched/rt.c
-@@ -43,6 +43,7 @@ void init_rt_bandwidth(struct rt_bandwid
+@@ -44,6 +44,7 @@ void init_rt_bandwidth(struct rt_bandwid
  
  	hrtimer_init(&rt_b->rt_period_timer,
  			CLOCK_MONOTONIC, HRTIMER_MODE_REL);
@@ -130,7 +130,7 @@ Signed-off-by: Ingo Molnar <mingo@elte.hu>
  {
  	struct hrtimer_clock_base *base = timer->base;
  
--	if (base && base->cpu_base && !hrtimer_hres_active(base->cpu_base))
+-	if (base && base->cpu_base && !hrtimer_hres_active())
 +	if (base && base->cpu_base && !timer->irqsafe)
  		wait_event(base->cpu_base->wait,
 -				!(timer->state & HRTIMER_STATE_CALLBACK));
@@ -431,7 +431,7 @@ Signed-off-by: Ingo Molnar <mingo@elte.hu>
  	}
  
  	cpu_base->cpu = cpu;
-@@ -1790,9 +1959,7 @@ void __init hrtimers_init(void)
+@@ -1783,9 +1952,7 @@ void __init hrtimers_init(void)
  	hrtimer_cpu_notify(&hrtimers_nb, (unsigned long)CPU_UP_PREPARE,
  			  (void *)(long)smp_processor_id());
  	register_cpu_notifier(&hrtimers_nb);
@@ -443,7 +443,7 @@ Signed-off-by: Ingo Molnar <mingo@elte.hu>
  /**
 --- a/kernel/time/tick-sched.c
 +++ b/kernel/time/tick-sched.c
-@@ -1154,6 +1154,7 @@ void tick_setup_sched_timer(void)
+@@ -1159,6 +1159,7 @@ void tick_setup_sched_timer(void)
  	 * Emulate tick processing via per-CPU hrtimers:
  	 */
  	hrtimer_init(&ts->sched_timer, CLOCK_MONOTONIC, HRTIMER_MODE_ABS);
@@ -453,7 +453,7 @@ Signed-off-by: Ingo Molnar <mingo@elte.hu>
  	/* Get the next period (per cpu) */
 --- a/kernel/watchdog.c
 +++ b/kernel/watchdog.c
-@@ -440,6 +440,7 @@ static void watchdog_enable(unsigned int
+@@ -454,6 +454,7 @@ static void watchdog_enable(unsigned int
  	/* kick off the timer for the hardlockup detector */
  	hrtimer_init(hrtimer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
  	hrtimer->function = watchdog_timer_fn;
