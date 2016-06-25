@@ -1,7 +1,7 @@
 From: Jason Wessel <jason.wessel@windriver.com>
 Date: Thu, 28 Jul 2011 12:42:23 -0500
 Subject: kgdb/serial: Short term workaround
-Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.1/patches-4.1.3-rt3.tar.xz
+Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.6/older/patches-4.6.1-rt3.tar.xz
 
 On 07/27/2011 04:37 PM, Thomas Gleixner wrote:
 >  - KGDB (not yet disabled) is reportedly unusable on -rt right now due
@@ -19,30 +19,30 @@ Thanks,
 Jason.
 
 ---
- drivers/tty/serial/8250/8250_core.c |    3 ++-
+ drivers/tty/serial/8250/8250_port.c |    3 +++
  include/linux/kdb.h                 |    2 ++
  kernel/debug/kdb/kdb_io.c           |    6 ++----
- 3 files changed, 6 insertions(+), 5 deletions(-)
+ 3 files changed, 7 insertions(+), 4 deletions(-)
 
---- a/drivers/tty/serial/8250/8250_core.c
-+++ b/drivers/tty/serial/8250/8250_core.c
-@@ -36,6 +36,7 @@
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
+@@ -35,6 +35,7 @@
  #include <linux/nmi.h>
  #include <linux/mutex.h>
  #include <linux/slab.h>
 +#include <linux/kdb.h>
  #include <linux/uaccess.h>
  #include <linux/pm_runtime.h>
- #ifdef CONFIG_SPARC
-@@ -3373,7 +3374,7 @@ static void serial8250_console_write(str
+ #include <linux/timer.h>
+@@ -3094,6 +3095,8 @@ void serial8250_console_write(struct uar
  
- 	if (port->sysrq)
+ 	if (port->sysrq || oops_in_progress)
  		locked = 0;
--	else if (oops_in_progress)
-+	else if (oops_in_progress || in_kdb_printk())
- 		locked = spin_trylock_irqsave(&port->lock, flags);
++	else if (in_kdb_printk())
++		locked = spin_trylock_irqsave(&port->lock, flags);
  	else
  		spin_lock_irqsave(&port->lock, flags);
+ 
 --- a/include/linux/kdb.h
 +++ b/include/linux/kdb.h
 @@ -167,6 +167,7 @@ extern __printf(2, 0) int vkdb_printf(en

@@ -21,15 +21,19 @@ class Changelog(list):
 (?P<distribution>
     [-+0-9a-zA-Z.]+
 )
-\;
+\;\s+urgency=
+(?P<urgency>
+    \w+
+)
 """
     _re = re.compile(_rules, re.X)
 
     class Entry(object):
-        __slot__ = 'distribution', 'source', 'version'
+        __slot__ = 'distribution', 'source', 'version', 'urgency'
 
-        def __init__(self, distribution, source, version):
-            self.distribution, self.source, self.version = distribution, source, version
+        def __init__(self, distribution, source, version, urgency):
+            self.distribution, self.source, self.version, self.urgency = \
+                distribution, source, version, urgency
 
     def __init__(self, dir='', version=None):
         if version is None:
@@ -48,7 +52,9 @@ class Changelog(list):
                 if not len(self):
                     raise
                 v = Version(match.group('version'))
-            self.append(self.Entry(match.group('distribution'), match.group('source'), v))
+            self.append(self.Entry(match.group('distribution'),
+                                   match.group('source'), v,
+                                   match.group('urgency')))
 
 
 class Version(object):
@@ -283,7 +289,8 @@ class PackageRelationGroup(list):
 
     def _search_value(self, value):
         for i, j in zip(self, value):
-            if i.name != j.name or i.version != j.version:
+            if i.name != j.name or i.operator != j.operator or \
+               i.version != j.version or i.restrictions != j.restrictions:
                 return None
         return self
 
@@ -309,9 +316,9 @@ class PackageRelationGroup(list):
 
 
 class PackageRelationEntry(object):
-    __slots__ = "name", "operator", "version", "arches"
+    __slots__ = "name", "operator", "version", "arches", "restrictions"
 
-    _re = re.compile(r'^(\S+)(?: \((<<|<=|=|!=|>=|>>)\s*([^)]+)\))?(?: \[([^]]+)\])?$')
+    _re = re.compile(r'^(\S+)(?: \((<<|<=|=|!=|>=|>>)\s*([^)]+)\))?(?: \[([^]]+)\])?(?: <([^>]+)>)?$')
 
     class _operator(object):
         OP_LT = 1
@@ -352,6 +359,9 @@ class PackageRelationEntry(object):
         def __str__(self):
             return self.operators_text[self._op]
 
+        def __eq__(self, other):
+            return type(other) == type(self) and self._op == other._op
+
     def __init__(self, value=None, override_arches=None):
         if not isinstance(value, str):
             raise ValueError
@@ -367,6 +377,8 @@ class PackageRelationEntry(object):
             ret.extend((' (', str(self.operator), ' ', self.version, ')'))
         if self.arches:
             ret.extend((' [', ' '.join(self.arches), ']'))
+        if self.restrictions:
+            ret.extend((' <', ' '.join(self.restrictions), '>'))
         return ''.join(ret)
 
     def parse(self, value):
@@ -384,9 +396,41 @@ class PackageRelationEntry(object):
             self.arches = re.split('\s+', match[3])
         else:
             self.arches = []
+        if match[4] is not None:
+            self.restrictions = re.split('\s+', match[4])
+        else:
+            self.restrictions = []
 
 
-class Package(dict):
+class _ControlFileDict(dict):
+    def __setitem__(self, key, value):
+        try:
+            cls = self._fields[key]
+            if not isinstance(value, cls):
+                value = cls(value)
+        except KeyError:
+            pass
+        super(_ControlFileDict, self).__setitem__(key, value)
+
+    def keys(self):
+        keys = set(super(_ControlFileDict, self).keys())
+        for i in self._fields.keys():
+            if i in self:
+                keys.remove(i)
+                yield i
+        for i in sorted(list(keys)):
+            yield i
+
+    def items(self):
+        for i in self.keys():
+            yield (i, self[i])
+
+    def values(self):
+        for i in self.keys():
+            yield self[i]
+
+
+class Package(_ControlFileDict):
     _fields = collections.OrderedDict((
         ('Package', str),
         ('Source', str),
@@ -409,28 +453,14 @@ class Package(dict):
         ('Description', PackageDescription),
     ))
 
-    def __setitem__(self, key, value):
-        try:
-            cls = self._fields[key]
-            if not isinstance(value, cls):
-                value = cls(value)
-        except KeyError:
-            pass
-        super(Package, self).__setitem__(key, value)
 
-    def iterkeys(self):
-        keys = set(self.keys())
-        for i in self._fields.keys():
-            if i in self:
-                keys.remove(i)
-                yield i
-        for i in keys:
-            yield i
-
-    def iteritems(self):
-        for i in self.iterkeys():
-            yield (i, self[i])
-
-    def itervalues(self):
-        for i in self.iterkeys():
-            yield self[i]
+class TestsControl(_ControlFileDict):
+    _fields = collections.OrderedDict((
+        ('Tests', str),
+        ('Test-Command', str),
+        ('Restrictions', str),
+        ('Features', str),
+        ('Depends', PackageRelation),
+        ('Tests-Directory', str),
+        ('Classes', str),
+    ))

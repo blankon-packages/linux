@@ -1,7 +1,7 @@
 Subject: sysfs: Add /sys/kernel/realtime entry
 From: Clark Williams <williams@redhat.com>
 Date: Sat Jul 30 21:55:53 2011 -0500
-Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.1/patches-4.1.3-rt3.tar.xz
+Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.6/older/patches-4.6.1-rt3.tar.xz
 
 Add a /sys/kernel entry to indicate that the kernel is a
 realtime kernel.
@@ -22,7 +22,7 @@ Signed-off-by: Peter Zijlstra <a.p.zijlstra@chello.nl>
 +++ b/kernel/ksysfs.c
 @@ -136,6 +136,15 @@ KERNEL_ATTR_RO(vmcoreinfo);
  
- #endif /* CONFIG_KEXEC */
+ #endif /* CONFIG_KEXEC_CORE */
  
 +#if defined(CONFIG_PREEMPT_RT_FULL)
 +static ssize_t  realtime_show(struct kobject *kobj,
@@ -36,10 +36,10 @@ Signed-off-by: Peter Zijlstra <a.p.zijlstra@chello.nl>
  /* whether file capabilities are enabled */
  static ssize_t fscaps_show(struct kobject *kobj,
  				  struct kobj_attribute *attr, char *buf)
-@@ -203,6 +212,9 @@ static struct attribute * kernel_attrs[]
- 	&vmcoreinfo_attr.attr,
- #endif
+@@ -225,6 +234,9 @@ static struct attribute * kernel_attrs[]
  	&rcu_expedited_attr.attr,
+ 	&rcu_normal_attr.attr,
+ #endif
 +#ifdef CONFIG_PREEMPT_RT_FULL
 +	&realtime_attr.attr,
 +#endif

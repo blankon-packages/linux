@@ -126,7 +126,6 @@ CONFIG_ATM_HE=m
 ## file: drivers/block/Kconfig
 ##
 CONFIG_BLK_DEV_FD=m
-CONFIG_BLK_CPQ_DA=m
 CONFIG_BLK_CPQ_CISS_DA=m
 CONFIG_CISS_SCSI_TAPE=y
 CONFIG_BLK_DEV_DAC960=m
@@ -251,7 +250,6 @@ CONFIG_SENSORS_W83627HF=m
 ## file: drivers/i2c/Kconfig
 ##
 CONFIG_I2C=y
-CONFIG_I2C_CHARDEV=m
 # CONFIG_I2C_STUB is not set
 # CONFIG_I2C_DEBUG_CORE is not set
 # CONFIG_I2C_DEBUG_ALGO is not set
@@ -538,10 +536,6 @@ CONFIG_NATSEMI=m
 ##
 CONFIG_8139CP=m
 CONFIG_8139TOO=m
-CONFIG_8139TOO_PIO=y
-# CONFIG_8139TOO_TUNE_TWISTER is not set
-CONFIG_8139TOO_8129=y
-# CONFIG_8139_OLD_RX_RESET is not set
 
 ##
 ## file: drivers/net/ethernet/sis/Kconfig
@@ -621,27 +615,27 @@ CONFIG_DLCI_MAX=8
 ## file: drivers/net/wireless/Kconfig
 ##
 CONFIG_PCMCIA_RAYCS=m
+CONFIG_PCMCIA_WL3501=m
+
+##
+## file: drivers/net/wireless/atmel/Kconfig
+##
 CONFIG_ATMEL=m
 # CONFIG_PCI_ATMEL is not set
 CONFIG_PCMCIA_ATMEL=m
-CONFIG_AIRO_CS=m
-CONFIG_PCMCIA_WL3501=m
-CONFIG_USB_ZD1201=m
 
 ##
-## file: drivers/net/wireless/ipw2x00/Kconfig
+## file: drivers/net/wireless/cisco/Kconfig
+##
+CONFIG_AIRO_CS=m
+
+##
+## file: drivers/net/wireless/intel/ipw2x00/Kconfig
 ##
 # CONFIG_IPW2100 is not set
 
 ##
-## file: drivers/net/wireless/mwifiex/Kconfig
-##
-CONFIG_MWIFIEX=m
-CONFIG_MWIFIEX_SDIO=m
-CONFIG_MWIFIEX_PCIE=m
-
-##
-## file: drivers/net/wireless/orinoco/Kconfig
+## file: drivers/net/wireless/intersil/orinoco/Kconfig
 ##
 CONFIG_HERMES=m
 CONFIG_APPLE_AIRPORT=m
@@ -649,6 +643,18 @@ CONFIG_PLX_HERMES=m
 CONFIG_TMD_HERMES=m
 CONFIG_PCI_HERMES=m
 CONFIG_PCMCIA_HERMES=m
+
+##
+## file: drivers/net/wireless/marvell/mwifiex/Kconfig
+##
+CONFIG_MWIFIEX=m
+CONFIG_MWIFIEX_SDIO=m
+CONFIG_MWIFIEX_PCIE=m
+
+##
+## file: drivers/net/wireless/zydas/Kconfig
+##
+CONFIG_USB_ZD1201=m
 
 ##
 ## file: drivers/pci/hotplug/Kconfig

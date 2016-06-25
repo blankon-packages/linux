@@ -1,5 +1,4 @@
 #include <usb-modules>
-phy-sun4i-usb
 dwc3-exynos
 dwc3-omap
 ohci-exynos
@@ -8,7 +7,8 @@ ehci-exynos
 ehci-omap
 ehci-orion
 ehci-tegra
-phy-exynos-usb2
-phy-omap-usb2
 ci_hdrc_imx
-phy-mxs-usb
+dwc2
+dwc3
+omap-ocp2scp
+extcon-usb-gpio

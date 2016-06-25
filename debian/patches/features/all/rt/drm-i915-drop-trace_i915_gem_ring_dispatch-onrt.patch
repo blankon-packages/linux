@@ -1,7 +1,7 @@
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Date: Thu, 25 Apr 2013 18:12:52 +0200
 Subject: drm/i915: drop trace_i915_gem_ring_dispatch on rt
-Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.1/patches-4.1.3-rt3.tar.xz
+Origin: https://www.kernel.org/pub/linux/kernel/projects/rt/4.6/older/patches-4.6.1-rt3.tar.xz
 
 This tracepoint is responsible for:
 
@@ -47,13 +47,13 @@ Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
 --- a/drivers/gpu/drm/i915/i915_gem_execbuffer.c
 +++ b/drivers/gpu/drm/i915/i915_gem_execbuffer.c
-@@ -1339,7 +1339,9 @@ i915_gem_ringbuffer_submission(struct dr
- 			return ret;
- 	}
+@@ -1314,7 +1314,9 @@ i915_gem_ringbuffer_submission(struct i9
+ 	if (ret)
+ 		return ret;
  
 +#ifndef CONFIG_PREEMPT_RT_BASE
- 	trace_i915_gem_ring_dispatch(intel_ring_get_request(ring), dispatch_flags);
+ 	trace_i915_gem_ring_dispatch(params->request, params->dispatch_flags);
 +#endif
  
- 	i915_gem_execbuffer_move_to_active(vmas, ring);
- 	i915_gem_execbuffer_retire_commands(dev, file, ring, batch_obj);
+ 	i915_gem_execbuffer_move_to_active(vmas, params->request);
+ 	i915_gem_execbuffer_retire_commands(params);
