@@ -810,7 +810,7 @@ Description: All header files for Linux 4.7 (meta-package)
  kernel modules.
 Build-Profiles: <!stage1>
 
-Package: linux-image-4.7.0-1-amd64-unsigned
+Package: linux-image-4.7.0-1-amd64
 Architecture: amd64
 Provides: linux-image-4.7.0-1-amd64
 Depends: kmod, linux-base (>= 4.3~), ${misc:Depends}, initramfs-tools (>= 0.110~) [amd64] | linux-initramfs-tool [amd64]
