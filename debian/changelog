@@ -1,15 +1,140 @@
-linux (4.6.2-2blankon2) tambora; urgency=medium
+linux (4.6.4-1blankon2) tambora; urgency=medium
 
-  * Patch cow dirty 
+  * patche/dirty_cow.patch 
 
- -- Rahman Yusri Aftian <aftian@blankon.id>  Fri, 28 Oct 2016 07:42:06 +0700
+ -- Rahman Yusri Aftian <aftian@blankon.id>  Sat, 29 Oct 2016 19:28:35 +0700
 
-linux (4.6.2-2blankon1) tambora; urgency=medium
+linux (4.6.4-1blankon1) tambora; urgency=medium
 
-  * New Upstream Release
-  * Change rules branding to BlankOn
+  * New Upstream Release 
 
- -- Rahman Yusri Aftian <aftian@di.blankon.in>  Sat, 02 Jul 2016 21:45:22 +0700
+ -- Rahman Yusri Aftian <aftian@di.blankon.in>  Thu, 28 Jul 2016 23:14:06 +0700
+
+linux (4.6.4-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream stable update:
+    https://www.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.6.4
+    - net_sched: fix pfifo_head_drop behavior vs backlog
+    - act_ipt: fix a bind refcnt leak
+    - net: Don't forget pr_fmt on net_dbg_ratelimited for CONFIG_DYNAMIC_DEBUG
+    - sit: correct IP protocol used in ipip6_err
+    - esp: Fix ESN generation under UDP encapsulation
+    - netem: fix a use after free
+    - ipmr/ip6mr: Initialize the last assert time of mfc entries.
+    - Bridge: Fix ipv6 mc snooping if bridge has no ipv6 address
+    - sock_diag: do not broadcast raw socket destruction
+    - bpf, perf: delay release of BPF prog after grace period
+    - neigh: Explicitly declare RCU-bh read side critical section in neigh_xmit()
+    - AX.25: Close socket connection on session completion
+    - [powerpc] crypto: vmx - Increase priority of aes-cbc cipher
+    - crypto: user - re-add size check for CRYPTO_MSG_GETALG
+    - USB: uas: Fix slave queue_depth not being set
+    - usb: quirks: Fix sorting
+    - usb: quirks: Add no-lpm quirk for Acer C120 LED Projector
+    - [armhf] usb: musb: only restore devctl when session was set in backup
+    - [armhf] usb: musb: Stop bulk endpoint while queue is rotated
+    - [armhf] usb: musb: Ensure rx reinit occurs for shared_fifo endpoints
+    - [armhf] usb: musb: host: correct cppi dma channel for isoch transfer
+    - xhci: Cleanup only when releasing primary hcd
+    - usb: xhci-plat: properly handle probe deferral for devm_clk_get()
+    - USB: xhci: Add broken streams quirk for Frescologic device id 1009
+    - xhci: Fix handling timeouted commands on hosts in weird states.
+    - USB: mos7720: delete parport
+    - usb: gadget: fix spinlock dead lock in gadgetfs
+    - [arm64, armhf] usb: host: ehci-tegra: Grab the correct UTMI pads reset
+    - usb: dwc3: exynos: Fix deferred probing storm.
+
+  [ Uwe Kleine-König ]
+  * Cherry pick patches for rtc-s35390a from next. (Closes: #794266)
+
+  [ Salvatore Bonaccorso ]
+  * apparmor: fix oops, validate buffer size in apparmor_setprocattr()
+    (CVE-2016-6187)
+
+  [ Ben Hutchings ]
+  * bridge: Fix ABI change in 4.6.4
+  * [rt] Update to 4.6.4-rt6 (no functional change)
+
+ -- Salvatore Bonaccorso <carnil@debian.org>  Mon, 18 Jul 2016 21:57:31 +0200
+
+linux (4.6.3-1) unstable; urgency=medium
+
+  [ Ben Hutchings ]
+  * New upstream stable update:
+    https://www.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.6.3
+    - scsi_lib: correctly retry failed zero length REQ_TYPE_FS commands
+    - scsi: Add QEMU CD-ROM to VPD Inquiry Blacklist
+    - netlink: Fix dump skb leak/double free
+    - tipc: fix nametable publication field in nl compat
+    - switchdev: pass pointer to fib_info instead of copy
+    - tuntap: correctly wake up process during uninit
+    - bpf: Use mount_nodev not mount_ns to mount the bpf filesystem
+    - udp: prevent skbs lingering in tunnel socket queues
+    - uapi glibc compat: fix compilation when !__USE_MISC in glibc
+    - bpf, inode: disallow userns mounts
+    - [armhf] net: mvneta: Fix lacking spinlock initialization
+    - net: hwbm: Fix unbalanced spinlock in error case
+    - sfc: on MC reset, clear PIO buffer linkage in TXQs
+    - team: don't call netdev_change_features under team->lock
+    - net: alx: use custom skb allocator
+    - net: stmmac: Fix incorrect memcpy source memory
+    - vxlan: Accept user specified MTU value when create new vxlan link
+    - net: nps_enet: Disable interrupts before napi reschedule
+    - bpf, trace: use READ_ONCE for retrieving file ptr
+    - tcp: record TLP and ER timer stats in v6 stats
+    - bridge: Don't insert unnecessary local fdb entry on changing mac address
+    - l2tp: fix configuration passed to setup_udp_tunnel_sock()
+    - ipv6: Skip XFRM lookup if dst_entry in socket cache is valid
+    - [armhf,arm64] KVM: vgic-v2: Clear all dirty LRs
+    - [armhf,arm64] KVM: vgic-v3: Clear all dirty LRs
+    - [x86] KVM: fix OOPS after invalid KVM_SET_DEBUGREGS
+    - KVM: irqfd: fix NULL pointer dereference in kvm_irq_map_gsi
+    - [arm*] drivers/perf: arm_pmu: Defer the setting of __oprofile_cpu_pmu
+    - [x86] ALSA: hda - Add PCI ID for Kabylake
+    - [x86] ALSA: hda - Fix headset mic detection problem for Dell machine
+    - ALSA: hda/realtek - ALC256 speaker noise issue
+    - ALSA: hda/realtek - Add support for new codecs ALC700/ALC701/ALC703
+    - [x86] ALSA: hda/realtek: Add T560 docking unit fixup
+    - [armhf] fix PTRACE_SETVFPREGS on SMP systems
+    - gpio: bail out silently on NULL descriptors
+    - gpiolib: Fix NULL pointer deference
+    - gpiolib: Fix unaligned used of reference counters
+    - [s390x] bpf: fix recache skb->data/hlen for skb_vlan_push/pop
+    - [s390x] bpf: reduce maximum program size to 64 KB
+    - [armhf,arm64] irqchip/gic-v3: Fix ICC_SGI1R_EL1.INTID decoding mask
+    - [x86] crypto: ccp - Fix AES XTS error for request sizes above 4096
+    - [arm64] Provide "model name" in /proc/cpuinfo for PER_LINUX32 tasks
+    - [arm64] mm: always take dirty state from new pte in ptep_set_access_flags
+    - [powerpc*] pseries/eeh: Handle RTAS delay requests in configure_bridge
+    - [powerpc*] Fix definition of SIAR and SDAR registers
+    - [powerpc*] Use privileged SPR number for MMCR2
+    - [powerpc*] pseries: Add POWER8NVL support to
+      ibm,client-architecture-support call
+    - [powerpc*] mm/hash: Fix the reference bit update when handling hash fault
+    - [hppa] Fix pagefault crash in unaligned __get_user() call
+    - memcg: add RCU locking around css_for_each_descendant_pre() in
+      memcg_offline_kmem()
+    - wext: Fix 32 bit iwpriv compatibility issue with 64 bit Kernel
+    - mm: thp: broken page count after commit aa88b68c3b1d
+    - [x86] entry/traps: Don't force in_interrupt() to return true in IST
+      handlers
+    - fix d_walk()/non-delayed __d_free() race
+    - [sparc64] Reduce TLB flushes during hugepte changes
+    - [sparc64] Take ctx_alloc_lock properly in hugetlb_setup().
+    - [sparc64] Harden signal return frame checks.
+    - [sparc64] Fix return from trap window fill crashes.
+    - drm/core: Do not preserve framebuffer on rmfb, v4.
+    - [x86] Revert "drm/i915: Exit cherryview_irq_handler() after one pass"
+    - gpio: make sure gpiod_to_irq() returns negative on NULL desc
+  * [powerpc*] tm: Always reclaim in start_thread() for exec() class syscalls
+    (CVE-2016-5828)
+
+  [ Salvatore Bonaccorso ]
+  * HID: hiddev: validate num_values for HIDIOCGUSAGES, HIDIOCSUSAGES commands
+    (CVE-2016-5829)
+
+ -- Ben Hutchings <ben@decadent.org.uk>  Mon, 04 Jul 2016 20:10:24 +0200
 
 linux (4.6.2-2) unstable; urgency=medium
 
