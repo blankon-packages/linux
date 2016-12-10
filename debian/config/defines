@@ -1,5 +1,10 @@
 [abi]
 abiname: 1
+ignore-changes:
+# Should not be used from OOT
+ module:drivers/net/wireless/realtek/rtlwifi/*
+ module:net/switchdev/*
+ xt_compat_match_from_user
 
 [base]
 arches:
@@ -42,7 +47,6 @@ featuresets:
  rt
 
 [build]
-debug-info: true
 # Enable module signing by default (implemented in the linux-signed package)
 signed-modules: true
 
@@ -60,7 +64,7 @@ initramfs-generators: initramfs-tools initramfs-fallback
 
 [relations]
 # compilers
-gcc-5: gcc-5 <!stage1 !cross>, gcc-5-@gnu-type-package@:native <!stage1 cross>
+gcc-5: gcc-5 <!stage1>
 
 # initramfs-generators
 initramfs-fallback: linux-initramfs-tool

@@ -1,21 +1,17 @@
 include $(top_rulesdir)/Makefile.inc
 
-MAKE_CPUPOWER := $(shell dpkg-buildflags --export=cmdline) $(MAKE) O=$(CURDIR) CPUFREQ_BENCH=false V=true mandir=/usr/share/man
-
-MAKE_CPUPOWER += DEBUG=$(if $(findstring nostrip,$(DEB_BUILD_OPTIONS)),true,)
-
-MAKE_CPUPOWER += CROSS='$(CROSS_COMPILE)'
-
-MAKE_CPUPOWER += PACKAGE_BUGREPORT='Debian\ \(reportbug\ linux-cpupower\)'
+ifneq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+	DEBUG = true
+endif
 
 all:
-	$(MAKE_CPUPOWER) -C $(top_srcdir)/tools/power/cpupower
+	$(shell dpkg-buildflags --export=cmdline) $(MAKE) -C $(top_srcdir)/tools/power/cpupower O=$(CURDIR) DEBUG=$(DEBUG) CPUFREQ_BENCH=false V=true
 
 install:
-	$(MAKE_CPUPOWER) -C $(top_srcdir)/tools/power/cpupower install DESTDIR=$(DESTDIR)
+	$(MAKE) -C $(top_srcdir)/tools/power/cpupower O=$(CURDIR) install mandir=/usr/share/man DESTDIR=$(DESTDIR) CPUFREQ_BENCH=false
 ifneq (,$(filter nodoc,$(DEB_BUILD_PROFILES)))
 	rm -rf $(DESTDIR)/usr/share/man
 endif
 
 clean:
-	$(MAKE_CPUPOWER) -C $(top_srcdir)/tools/power/cpupower clean
+	$(MAKE) -C $(top_srcdir)/tools/power/cpupower O=$(CURDIR) clean
